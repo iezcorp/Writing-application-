@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f4ee">
+  <title>Margin — A place for your words</title>
+  <link rel="icon" type="image/png" href="Icons/Logo.png?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="welcome" class="welcome-screen">
+    <div class="welcome-mark">m.</div>
+    <p>Welcome to Margin</p>
+    <span>A little room for your words.</span>
+  </div>
+
+  <main id="authView" class="auth-view hidden">
+    <section class="auth-brand">
+      <a class="wordmark" href="#" aria-label="Margin home">margin<span>.</span></a>
+      <div class="auth-intro">
+        <span class="eyebrow">A quieter corner of the internet</span>
+        <h1>Make room<br>for your words.</h1>
+        <p>Write what’s on your mind. Share it when you’re ready. Find people who have something to say.</p>
+      </div>
+      <p class="auth-foot">A place to write, read, and feel at home.</p>
+    </section>
+    <section class="auth-panel">
+      <div class="auth-card">
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-auth-tab="signup">Create account</button>
+          <button class="auth-tab" data-auth-tab="login">Log in</button>
+        </div>
+
+        <form id="signupForm" class="auth-form">
+          <div>
+            <span class="eyebrow">Start with a blank page</span>
+            <h2>Create your space.</h2>
+          </div>
+          <label>Preferred name<input id="signupName" type="text" maxlength="40" placeholder="What should we call you?" required></label>
+          <label>Username<input id="signupUsername" type="text" maxlength="24" placeholder="e.g. sarah" autocomplete="username" required><small>Your name can be shared. Margin gives each account a number, like Sarah#0001.</small></label>
+          <label>Email address<input id="signupEmail" type="email" placeholder="you@example.com" autocomplete="email" required></label>
+          <label>Password<input id="signupPassword" type="password" minlength="8" placeholder="At least 8 characters" autocomplete="new-password" required></label>
+          <div class="avatar-setup">
+            <div class="avatar-preview" id="signupAvatarPreview">M</div>
+            <div class="avatar-copy"><strong>Your profile picture</strong><span>Optional. You can add one now or keep the default.</span><label class="file-button" for="signupAvatar">Choose a picture</label><input id="signupAvatar" type="file" accept="image/*" hidden></div>
+          </div>
+          <button class="primary-button" type="submit">Create account</button>
+          <p class="form-note">Your password is private and protected. Only you can access your account.</p>
+        </form>
+
+        <form id="loginForm" class="auth-form hidden">
+          <div>
+            <span class="eyebrow">Good to have you back</span>
+            <h2>Welcome back.</h2>
+          </div>
+          <label>Email address<input id="loginEmail" type="email" autocomplete="email" placeholder="you@example.com" required></label>
+          <label>Password<input id="loginPassword" type="password" autocomplete="current-password" placeholder="Your password" required></label>
+          <button class="text-button forgot-link" id="forgotPassword" type="button">Forgot your password?</button>
+          <button class="primary-button" type="submit">Log in</button>
+        </form>
+
+        <form id="resetForm" class="auth-form hidden">
+          <div><span class="eyebrow">A fresh start</span><h2>Reset your password.</h2><p class="muted">We’ll email you a secure password-reset link.</p></div>
+          <label>Email address<input id="resetEmail" type="email" autocomplete="email" placeholder="you@example.com" required></label>
+          <button class="primary-button" type="submit">Send reset link</button>
+          <button class="text-button back-login" type="button">Back to log in</button>
+        </form>
+
+        <form id="newPasswordForm" class="auth-form hidden">
+          <div><span class="eyebrow">Almost there</span><h2>Choose a new password.</h2></div>
+          <label>New password<input id="newPassword" type="password" minlength="8" required></label>
+          <button class="primary-button" type="submit">Save password</button>
+        </form>
+        <p id="authMessage" class="message" role="status"></p>
+      </div>
+    </section>
+  </main>
+
+  <div id="appView" class="app-view hidden">
+    <aside class="sidebar">
+      <a class="wordmark" href="#" data-nav="feed">margin<span>.</span></a>
+      <p class="side-caption">YOUR LITTLE CORNER</p>
+      <nav class="main-nav">
+        <button class="nav-link active" data-nav="feed"><img class="icon" src="Icons/Home.svg" alt="" aria-hidden="true"> For you</button>
+        <button class="nav-link" data-nav="explore"><img class="icon" src="Icons/Search.svg" alt="" aria-hidden="true"> Explore</button>
+        <button class="nav-link" data-nav="drafts"><img class="icon" src="Icons/Saved.svg" alt="" aria-hidden="true"> Your drafts</button>
+        <button class="nav-link write-link" data-nav="write"><img class="icon" src="Icons/notebook-pen.svg" alt="" aria-hidden="true"> Write something</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <button class="profile-mini" id="sidebarProfile">
+          <span class="avatar small" id="sidebarAvatar">M</span>
+          <span><strong id="sidebarName">Your name</strong><small id="sidebarHandle">@username</small></span>
+        </button>
+        <button class="nav-link" data-nav="settings"><img class="icon" src="Icons/settings.svg" alt="" aria-hidden="true"> Settings</button>
+        <button class="nav-link" id="logoutButton"><img class="icon" src="Icons/log-out.svg" alt="" aria-hidden="true"> Log out</button>
+      </div>
+    </aside>
+
+    <header class="mobile-header">
+      <a class="wordmark" href="#" data-nav="feed">margin<span>.</span></a>
+      <button id="mobileProfile" class="avatar small">M</button>
+    </header>
+
+    <div class="mobile-nav">
+      <button data-nav="feed" class="active"><img class="icon" src="Icons/Home.svg" alt="" aria-hidden="true"><small>Home</small></button>
+      <button data-nav="explore"><img class="icon" src="Icons/Search.svg" alt="" aria-hidden="true"><small>Explore</small></button>
+      <button data-nav="write"><img class="icon" src="Icons/notebook-pen.svg" alt="" aria-hidden="true"><small>Write</small></button>
+      <button data-nav="drafts"><img class="icon" src="Icons/Saved.svg" alt="" aria-hidden="true"><small>Drafts</small></button>
+      <button data-nav="settings"><img class="icon" src="Icons/settings.svg" alt="" aria-hidden="true"><small>Settings</small></button>
+    </div>
+
+    <main class="content-area">
+      <section id="feedPage" class="page">
+        <div class="page-heading">
+          <div><span class="eyebrow">A page that keeps turning</span><h1>For you<span class="period">.</span></h1><p>Fresh thoughts and stories from the Margin community.</p></div>
+          <button class="primary-button compact" data-nav="write">Write a story</button>
+        </div>
+        <div id="feedList" class="post-list"></div>
+      </section>
+
+      <section id="explorePage" class="page hidden">
+        <div class="page-heading"><div><span class="eyebrow">Follow a thread</span><h1>Explore<span class="period">.</span></h1><p>Find a subject that stays with you.</p></div></div>
+        <div class="search-box"><img class="icon" src="Icons/Search.svg" alt="" aria-hidden="true"><input id="searchInput" type="search" placeholder="Search stories, writers, or tags..."></div>
+        <div id="tagCloud" class="tag-cloud"></div>
+        <div id="exploreList" class="post-list"></div>
+      </section>
+
+      <section id="draftsPage" class="page hidden">
+        <div class="page-heading"><div><span class="eyebrow">Still taking shape</span><h1>Your drafts<span class="period">.</span></h1><p>Private until you decide they’re ready.</p></div><button class="primary-button compact" data-nav="write">New draft</button></div>
+        <div id="draftList" class="post-list"></div>
+      </section>
+
+      <section id="writePage" class="page hidden">
+        <div class="editor-top"><button class="back-button" data-nav="feed"><img class="icon" src="Icons/Back%20Arrow.svg" alt="" aria-hidden="true"> Back</button><span class="eyebrow">THE WRITING ROOM</span><div class="editor-top-actions"><span id="saveStatus" class="save-status" role="status" aria-live="polite">AutoSave Active</span><button type="button" class="secondary-button compact" id="previewButton">Preview</button></div></div>
+        <form id="postForm" class="writing-editor">
+          <input id="postTitle" class="title-input" maxlength="120" placeholder="Give your writing a title..." autocomplete="off" required>
+          <input id="postDescription" class="description-input" maxlength="220" placeholder="A short description — what will readers find here?" autocomplete="off">
+          <div class="editor-divider"></div>
+          <div id="editorToolbar" class="editor-toolbar" role="toolbar" aria-label="Writing formatting">
+            <div class="toolbar-group">
+              <button type="button" class="toolbar-button" data-editor-command="bold" aria-label="Bold" title="Bold"><img class="icon" src="Icons/letter-b.svg" alt="" aria-hidden="true"></button>
+              <button type="button" class="toolbar-button" data-editor-command="italic" aria-label="Italic" title="Italic"><img class="icon" src="Icons/italic.svg" alt="" aria-hidden="true"></button>
+              <button type="button" class="toolbar-button" data-editor-command="underline" aria-label="Underline" title="Underline"><img class="icon" src="Icons/underline.svg" alt="" aria-hidden="true"></button>
+              <button type="button" class="toolbar-button" data-editor-command="strikeThrough" aria-label="Strikethrough" title="Strikethrough"><img class="icon" src="Icons/strikethrough.svg" alt="" aria-hidden="true"></button>
+              <button type="button" class="toolbar-button" data-editor-command="formatBlock" data-command-value="h1" aria-label="Heading 1" title="Heading 1"><img class="icon" src="Icons/letter-h.svg" alt="" aria-hidden="true"><span>1</span></button>
+              <button type="button" class="toolbar-button" data-editor-command="formatBlock" data-command-value="h2" aria-label="Heading 2" title="Heading 2"><img class="icon" src="Icons/letter-h.svg" alt="" aria-hidden="true"><span>2</span></button>
+              <button type="button" class="toolbar-button" data-editor-command="formatBlock" data-command-value="h3" aria-label="Heading 3" title="Heading 3"><img class="icon" src="Icons/letter-h.svg" alt="" aria-hidden="true"><span>3</span></button>
+              <button type="button" class="toolbar-button toolbar-text-button" data-editor-command="formatBlock" data-command-value="p" aria-label="Normal paragraph text" title="Normal paragraph text">Text</button>
+              <button type="button" class="toolbar-button" data-editor-command="insertUnorderedList" aria-label="Bulleted list" title="Bulleted list"><img class="icon" src="Icons/list.svg" alt="" aria-hidden="true"></button>
+              <button type="button" class="toolbar-button" data-editor-command="insertOrderedList" aria-label="Numbered list" title="Numbered list"><img class="icon" src="Icons/list.svg" alt="" aria-hidden="true"><span>1.</span></button>
+              <button type="button" class="toolbar-button toolbar-text-button" data-editor-command="createLink" aria-label="Insert link" title="Insert link">Link</button>
+              <button type="button" class="toolbar-button" data-editor-command="undo" aria-label="Undo" title="Undo"><img class="icon" src="Icons/undo.svg" alt="" aria-hidden="true"></button>
+              <button type="button" class="toolbar-button toolbar-text-button" data-editor-command="redo" aria-label="Redo" title="Redo">Redo</button>
+            </div>
+            <div class="toolbar-group clipboard-controls">
+              <button type="button" class="toolbar-button toolbar-text-button" data-editor-copy title="Copy selected text or the whole writing">Copy</button>
+              <button type="button" class="toolbar-button toolbar-text-button" data-editor-paste title="Paste at the cursor">Paste</button>
+            </div>
+          </div>
+          <div id="postBody" class="body-input" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Writing content" data-placeholder="Start wherever you are.&#10;&#10;There’s no right way to begin..."></div>
+          <div id="editorLineCount" class="editor-line-count" role="status" aria-live="polite">0 lines</div>
+          <div class="editor-bottom">
+            <label class="tag-input-wrap"><span>#</span><input id="postTags" placeholder="Add tags, separated by commas" maxlength="180"></label>
+            <div class="editor-actions"><button type="button" class="secondary-button" id="saveDraftButton"><img class="icon" src="Icons/save.svg" alt="" aria-hidden="true"> Save draft</button><button type="submit" class="primary-button" id="publishButton">Publish writing</button></div>
+          </div>
+        </form>
+      </section>
+
+      <section id="profilePage" class="page hidden">
+        <div id="profileContent"></div>
+      </section>
+
+      <section id="settingsPage" class="page hidden">
+        <div class="page-heading"><div><span class="eyebrow">Make yourself at home</span><h1>Settings<span class="period">.</span></h1><p>Your profile and account details.</p></div></div>
+        <form id="settingsForm" class="settings-card">
+          <div class="settings-avatar-row"><div class="avatar-preview large" id="settingsAvatarPreview">M</div><div><strong>Profile picture</strong><p class="muted">Choose an image, or remove it to use your default initials.</p><label class="file-button" for="settingsAvatar">Upload picture</label><input id="settingsAvatar" type="file" accept="image/*" hidden><button type="button" class="text-button" id="removeAvatar">Remove picture</button></div></div>
+          <div class="settings-grid">
+            <label>Preferred name<input id="settingsName" maxlength="40" required></label>
+            <label>Username<input id="settingsUsername" maxlength="24" required><small>Your unique number stays with this username unless you change its base name.</small></label>
+            <label class="full-width">About you<textarea id="settingsBio" maxlength="280" rows="3" placeholder="A few words about yourself..."></textarea></label>
+          </div>
+          <button class="primary-button" type="submit">Save profile changes</button>
+        </form>
+        <section class="settings-card appearance-card" aria-labelledby="appearanceHeading">
+          <h3 id="appearanceHeading">Appearance</h3>
+          <p class="muted">Choose a softer look for your writing space.</p>
+          <label class="setting-toggle" for="darkModeToggle">
+            <span><strong>Dark mode</strong><small>Use a calm, dark background across Margin.</small></span>
+            <input id="darkModeToggle" type="checkbox" role="switch" aria-label="Dark mode">
+          </label>
+          <label class="setting-toggle" for="lineCountToggle">
+            <span><strong>Show writing line count</strong><small>Display a live count of written lines in the editor.</small></span>
+            <input id="lineCountToggle" type="checkbox" role="switch" aria-label="Show writing line count">
+          </label>
+          <label class="setting-toggle" for="autoSaveToggle">
+            <span><strong>AutoSave</strong><small>Save your writing to Drafts as you work.</small></span>
+            <input id="autoSaveToggle" type="checkbox" role="switch" aria-label="AutoSave" checked>
+          </label>
+          <label class="setting-toggle" for="autoSaveNotificationsToggle">
+            <span><strong>AutoSave notifications</strong><small>Show a notification when your writing is autosaved.</small></span>
+            <input id="autoSaveNotificationsToggle" type="checkbox" role="switch" aria-label="AutoSave notifications">
+          </label>
+        </section>
+        <div class="settings-card password-card"><h3>Change password</h3><p class="muted">Choose a new password for your account.</p><form id="changePasswordForm"><label>New password<input id="changePassword" type="password" minlength="8" required></label><button class="secondary-button" type="submit">Update password</button></form></div>
+        <div class="settings-card danger-card"><h3>Delete account</h3><p class="muted">This permanently deletes your profile, writing, drafts, comments, likes, follows, and profile pictures.</p><button id="deleteAccountButton" class="danger-button">Delete my account</button></div>
+      </section>
+    </main>
+    <aside class="right-rail">
+      <div class="rail-card note-card"><span class="eyebrow">A small reminder</span><p>“You don’t have to know where a sentence is going before you write it.”</p><span class="muted">Make a little room.</span></div>
+      <div class="rail-card"><h3>Writing belongs here.</h3><p class="muted">Stories, thoughts, questions, memories, and ideas. The page is yours.</p><button class="text-button" data-nav="write">Start writing</button></div>
+      <p class="rail-footer">MARGIN · A PLACE FOR YOUR WORDS</p>
+    </aside>
+  </div>
+
+  <div id="previewModal" class="modal hidden" aria-modal="true" role="dialog" aria-label="Writing preview">
+    <div class="modal-backdrop" data-close-preview></div>
+    <article class="reader-panel preview-panel"><button class="close-button" data-close-preview aria-label="Close preview">Close</button><span class="eyebrow preview-label">PREVIEW</span><div id="previewContent"></div></article>
+  </div>
+  <div id="readerModal" class="modal hidden" aria-modal="true" role="dialog">
+    <div class="modal-backdrop" data-close-reader></div>
+    <article class="reader-panel"><button class="close-button" data-close-reader aria-label="Close reader">Close</button><div id="readerContent"></div></article>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
